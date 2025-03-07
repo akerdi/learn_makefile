@@ -1,0 +1,22 @@
+# 静态模式规则与过滤器
+# 使用函数 filter 在静态模式规则中匹配出正确的文件
+# .PHONY 用于指明虚拟的任务指代, 这样makefile 就不会认为是文件了
+
+src_files = foo.raw bar.c lose.c
+obj_files = foo.result bar.o lose.o
+
+.PHONY: all
+all: $(obj_files)
+
+$(filter %.o,$(obj_files)): %.o: %.c
+	echo "target: $@ prereq: $<"
+$(filter %.result,$(obj_files)): %.result: %.raw
+	echo "target: $@ prereq: $<"
+
+%.c %.raw:
+	touch $@
+
+clean:
+	rm -f $(src_files)
+
+# 模式规则在目标中包含了一个`%`, 这个% 匹配任意非空字符串, 其他字符匹配他们自己. 一个模式规则的prerequisite中的% 表示目标中 % 匹配到的同一个词干.

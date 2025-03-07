@@ -1,0 +1,18 @@
+thing_wrong := *.o # 请不要这样做!
+thing_right := $(wildcard *.o)
+
+all: one two three four
+
+# wrong
+one: $(thing_wrong)
+
+# 如果没有符合这个匹配规则的文件, 它将保持为 *.o
+# 故, 不推荐这么写
+two: *.o
+# 这样写导致生成了一个*.o 的文件
+
+
+three: $(thing_right)
+
+# 同规则three
+four: $(wildcard *.o)

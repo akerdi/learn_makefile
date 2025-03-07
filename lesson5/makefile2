@@ -1,0 +1,9 @@
+# ?= 用于当变量还没被设置时给它设置值, 反之则忽略
+
+one = hello
+one ?= will not be set
+two ?= will be set
+
+all:
+	echo $(one)
+	echo $(two)

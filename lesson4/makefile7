@@ -1,0 +1,17 @@
+# .EXPORT_ALL_VARIABLES 可以为你导出所有变量
+
+.EXPORT_ALL_VARIABLES:
+new_contents = "hello:\n\techo \$$(cooly)"
+
+cooly = "The subdirectory can see me!"
+
+all:
+	mkdir -p subdir
+	echo $(new_contents) | sed -e 's/^ //' > subdir/makefile
+	@echo "---MAKEFILE CONTENTS---"
+	@cd subdir && cat makefile
+	@echo "---END MAKEFILE CONTENTS---"
+	cd subdir && $(MAKE)
+
+clean:
+	rm -rf subdir

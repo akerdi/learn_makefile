@@ -1,0 +1,37 @@
+# 静态模式
+# 静态模式规则语法如下:
+# targets ...: target-pattern: prereq-patterns ...
+# 	commands
+# 它的本质是: 给定目标target 由target-pattern 在targets 中匹配得到(利用通配符%). 匹配到的内容被称为词干(stem). 然后, 将词干替换到prereq-pattern 中去, 并以此生成目标的 prerequisites 部分.
+# 下面是对比的例子:
+
+# 普通手动模式: `make -f makefile1 all_common`
+
+objects = foo.o bar.o all.o
+
+all_common: $(objects)
+
+foo.o: foo.c
+bar.o: bar.c
+all.o: all.c
+# 手动模式中, 如果不显式的指明, 则该文件不会具体生成, 不过也会执行出来.
+
+all.c:
+	echo "int main() { return 0; }" > all.c
+%.c:
+	touch $@
+clean:
+	rm -f *.c *.o all
+
+#/////////////////////////////////////////////////////////////////////////////////////////////////////
+# 下面是使用了静态模式: `make -f makefile1 all_static`
+
+# objects = foo.o bar.o all.o
+# all_static: $(objects)
+# $(objects): %.o: %.c
+# all.c:
+# 	echo "int main() { return 0; }" > all.c
+# %.c:
+#	touch $@
+# clean:
+# 	rm -f *.c *.o all

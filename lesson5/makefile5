@@ -1,0 +1,28 @@
+# 命令列表与define
+# define 实际上就是一个命令列表, 他与函数define 没有任何关系.
+
+one = export blah="I was set!"; echo $$blah
+CC=gcc
+define two
+export blah=set;
+echo $$blah
+endef
+
+all: a b blah.c
+	@echo "打印 'I was set!'"
+	@$(one)
+	@echo "不打印 'I was set', 也不打印'set', 因为各个命令运行在分离开的shell"
+	@$(two)
+
+# 给特定目标分配变量:
+a: arg = cool
+a:
+	@echo arg is defined: $(arg)
+
+b:
+	@echo arg is nothing: $(arg)
+
+# 给特定目标模式分配变量:
+%.c: arg = $(CC)
+blah.c:
+	@echo arg is defined: $(arg)

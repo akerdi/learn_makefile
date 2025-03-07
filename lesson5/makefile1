@@ -1,0 +1,10 @@
+# 扩展变量(`:=`) 使得你可以在一个变量基础上追加内容, 递归变量则会陷入死循环
+
+one = hello
+
+# Recursive variable 'one' references itself (eventually).  Stop.
+# one = $(one) there
+one := $(one) there
+
+all:
+	echo $(one)

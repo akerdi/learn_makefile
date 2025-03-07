@@ -1,0 +1,2 @@
+# 给make 传递参数
+# 可以同时传递多个目标给make, 例如`make clean run test` 会先后运行 clean / run / test.

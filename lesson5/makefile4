@@ -1,0 +1,15 @@
+# 命令行参数与覆盖
+# make 命令执行时, 后面是可以追加变量的.
+# 你可以用override 来覆盖来自命令行的变量. 这样option_one 则会是一直都是 did_override, 不会被更改:
+# make -s -f makefile4 option_one=one option_three=three option_four=four
+
+override option_one = did_override
+option_two = not_override
+# 通过判断参数变量是否存在来覆盖, 此时必须使用`:=`
+option_three := $(if $(option_three),$(option_three),"default_option_three")
+
+all:
+	echo $(option_one)
+	echo $(option_two)
+	echo $(option_three)
+	echo $(option_four)

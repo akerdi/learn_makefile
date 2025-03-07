@@ -1,0 +1,7 @@
+# 默认的Shell
+# 系统默认的shell 是/bin/sh. 你可以通过改变SHELL 变量的值来改变它:
+
+SHELL=/bin/bash
+
+cool:
+	echo "Hello from bash"

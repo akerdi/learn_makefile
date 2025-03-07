@@ -1,0 +1,21 @@
+# 在递归make中使用export
+# 指令export 携带了一个变量, 并且对子make 命令可见.
+# 下边例子中, 变量cooly 被导出以便在子目录中的makefile使用
+#> export 语法与sh相同, 但二者并不相关(虽然功能类似)
+
+new_contents = "hello:\n\techo \$$(cooly)"
+
+all:
+	mkdir -p subdir
+	echo $(new_contents) | sed -e 's/^ //' > subdir/makefile
+	@echo "---MAKEFILE CONTENTS---"
+	@cd subdir && cat makefile
+	@echo "---END MAKEFILE CONTENTS---"
+	cd subdir && $(MAKE)
+
+# 参数设置或者export 动作是全局性的
+cooly = "The subdirectory can see me!"
+export cooly
+
+clean:
+	rm -rf subdir

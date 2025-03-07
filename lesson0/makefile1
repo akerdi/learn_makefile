@@ -1,0 +1,7 @@
+# some_file 依赖的 other_file 从未被创建国, 所以每次构建都会运行
+
+some_file: other_file
+	touch some_file
+
+other_file:
+	echo "nothing"

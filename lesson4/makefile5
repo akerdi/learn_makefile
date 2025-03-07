@@ -1,0 +1,12 @@
+# make 的递归用法
+# 为了递归应用一个makefile, 请使用$(MAKE)而不是make, 因为它会为你传递构建标志, 而使用了$(MAKE)变量的这一行命令不会应用这些标志
+# sed -e 用于执行多个编译命令, 其中`s/old/new/` 代表替换. 这里表示每行首字符去掉空格: ` ` 转为``
+new_contents = "hello:\n\ttouch inside_file"
+
+all:
+	mkdir -p subdir
+	printf $(new_contents) | sed -e 's/^ //' > subdir/makefile
+	cd subdir && $(MAKE)
+
+clean:
+	rm -rf subdir

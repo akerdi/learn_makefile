@@ -1,0 +1,21 @@
+# 空字符
+# 变量值尾部的空格不会被删除, 但开头的空格会被删除. 想要一个值为单个空格的变量请使用$(nullstring)
+
+with_spaces = hello    # with_spaces 在hello后有很多空格
+after = $(with_spaces)there
+
+nullstring =
+space = $(nullstring) # 做一个单空格的变量
+
+# += 用于追加变量的值
+foo := start
+foo += more
+
+all:
+	echo "$(after)"
+	echo start"$(space)"end
+# 未定义则是一个空字符串
+	echo $(nowhere)
+	echo $(foo)
+
+# 字符串替换 也是一个场景有用的修改变量的方式. 可参考: [文本函数](https://www.gnu.org/software/make/manual/html_node/Text-Functions.html#Text-Functions) / [文件名函数](https://www.gnu.org/software/make/manual/html_node/File-Name-Functions.html#File-Name-Functions)
