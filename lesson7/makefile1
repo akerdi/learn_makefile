@@ -1,0 +1,24 @@
+# 函数 foreach
+# 函数 foreach 看起来像这样: $(foreach var,list,text), 它用于将一个单词列表(空格分割)转换为另一个. var 表示循环中的每一个单词, text 用于扩展每个单词
+# 示例: 在每个单词后追加一个感叹号:
+
+foo := who are you
+bar := $(foreach wrd,$(foo),$(wrd)!)
+
+all: recipe0 recipe1
+
+recipe0:
+	@echo $(bar)
+
+# 每个词后加`,`, 但是最后一个加的是`!`
+foo_num := $(words $(foo))
+foo_prefix_no_lastone_len := $(shell expr $(foo_num) - 1)
+foo_prefix_no_lastone_wordlist := $(wordlist 1,$(foo_prefix_no_lastone_len),$(foo))
+foo_lastone := $(lastword $(foo))
+foo_result := $(foreach w,$(foo_prefix_no_lastone_wordlist),$(w),) $(foo_lastone)!
+recipe1:
+	@echo foo_num: $(foo_num)
+	@echo foo_prefix_no_lastone_len: $(foo_prefix_no_lastone_len)
+	@echo foo_prefix_no_lastone_wordlist: $(foo_prefix_no_lastone_wordlist)
+	@echo foo_lastone: $(foo_lastone)
+	@echo foo_result: $(foo_result)

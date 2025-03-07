@@ -4,7 +4,7 @@
 
 bar := $(subst not,totally, "I am not superman")
 
-all: recipe0 recipe1
+all: recipe0 recipe1 recipe2
 
 recipe0:
 	@echo $(bar)
@@ -18,3 +18,10 @@ str := $(subst $(space),$(comma),$(foo))
 
 recipe1:
 	@echo $(str)
+
+# 使用sed 方案, 当然也可以使用其他程序输出赋值的方法
+tmp_str :=
+recipe2:
+	@echo "a b c" | sed -e 's/ /,/g' | xargs echo
+	$(eval tmp_str=$(shell echo "a b c" | sed -e 's/ /,/g'))
+	@echo tmp_str: $(tmp_str)

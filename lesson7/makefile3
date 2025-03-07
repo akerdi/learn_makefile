@@ -1,0 +1,6 @@
+# 函数shell
+# shell 调用shell, 但他在输出中会用空格替代换行
+
+# 下面会输出很丑的结果:
+all:
+	@echo $(shell ls -la)

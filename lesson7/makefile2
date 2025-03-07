@@ -1,0 +1,10 @@
+# 函数if
+# if 函数用来检查它的第1个参数是否非空. 如果非空, 则运行第2个参数, 否则运行第三个:
+
+foo := $(if this-is-not-empty,then!,else!)
+empty :=
+bar := $(if $(empty),then!,else!)
+
+all:
+	@echo $(foo)
+	@echo $(bar)

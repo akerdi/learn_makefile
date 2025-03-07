@@ -1,0 +1,7 @@
+# 函数call
+# Make 支持创建基本的函数. 你只需通过创建变量来'定义'函数, 只是会用到参数$(0) / $(1)等. 用法: `$(call variable,param,param)`:
+
+sweet_new_fn = Variable Name: $(0) First: $(1) Second: $(2) Empty Variable: $(3)
+
+all:
+	@echo $(call sweet_new_fn, go, tigers)
