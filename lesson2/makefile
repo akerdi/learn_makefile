@@ -2,6 +2,7 @@
 # * 会搜索你的文件系统来匹配文件名. 但是建议使用wildcard 来包裹它, 不然会掉入常见陷阱中.
 
 print: $(wildcard *.c)
+#	$?指比目标文件更新的所有依赖文件列表
 	ls -la $?
 
 print1: $(wildcard *.c)

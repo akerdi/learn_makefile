@@ -24,4 +24,5 @@ tmp_str :=
 recipe2:
 	@echo "a b c" | sed -e 's/ /,/g' | xargs echo
 	$(eval tmp_str=$(shell echo "a b c" | sed -e 's/ /,/g'))
+#   $(eval tmp_str=$(shell python3 xxx))
 	@echo tmp_str: $(tmp_str)
